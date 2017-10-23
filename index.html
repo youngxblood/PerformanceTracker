@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Performance Tracker</title>
+  <script src="https://unpkg.com/vue@2.5.2/dist/vue.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- template for the modal component -->
+<script type="x/template" id="modal-template">
+    <transition name="modal">
+        <div class="modal-mask" @click="close" v-show="show">
+            <div class="modal-container" @click.stop>
+                <div class="modal-header">
+                    <h3>Instructions</h3>
+                </div>
+                <div class="modal-body">
+                  <p>
+                  This tool is designed to streamline taking performance data with as few actions as possible. Follow the instructions below:
+                  </p>
+                    <ol>
+                      <li>Open up performance HTML.</li>
+                      <li>Press CRTL + A to copy all information.</li>
+                      <li>Paste information into input and press 'Submit'.</li>
+                    </ol>
+                  <p>
+                    <strong>NOTE: Time minus time disregarded has already been calculated for you.</strong><br>
+                    In the event of any bugs or issues, contact me at <strong>a-mastef@microsoft.com.</strong>
+                  </p>
+                  <div className="modal-header">
+                    <h4>Known issues:</h4>
+                  </div>
+                  <p>This tool does not support Internet Explorer as it has been built around use on Chrome.</p>
+                <div>
+                <div class="modal-footer text-right">
+                    <button class="btn btn-default" @click="close">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </transition>
+</script>
+
+  <div class="container">
+
+    <!-- app -->
+    <div id="modal">
+      <modal :show="showModal" @close="showModal = false"></modal>
+      <button id="show-modal" class="btn btn-light-green margin pull-right" @click="showModal = true">Instructions</button>
+    </div>
+
+    <div id="app">
+      <br class="noselect">
+      <br class="noselect">
+      <h2  class="noselect">Enter Performance Data Here:</h2>
+
+      <input class="form-control" v-model="message">
+
+      <button class="btn btn-green margin"@click="stringToArray">Submit</button>
+
+
+
+
+
+      <hr>
+      <div class="well">
+        <h2 class="noselect">Output</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="noselect">Level</th>
+              <th class="noselect">Changelist</th>
+              <th class="noselect">avg FPS</th>
+              <th class="noselect">% over 30</th>
+              <th class="noselect">% over 60</th>
+              <th class="noselect">Avg Dynamic Res</th>
+              <th class="noselect">% at max resolution</th>
+              <th class="noselect">avg GPU time</th>
+              <th class="noselect">avg RT time</th>
+              <th class="noselect">avg GT time</th>
+              <th class="noselect">avg GPU work time</th>
+              <th class="noselect">time</th>
+              <th class="noselect">hitches</th>
+            </tr>
+          </thead>
+          <tbody v-for="entry in entries">
+            <tr>
+              <td>{{entry.level}}</td>
+              <td>{{entry.cl}}</td>
+              <td>{{entry.avgFPS}}</td>
+              <td>{{entry.over30}}</td>
+              <td>{{entry.over60}}</td>
+              <td>{{entry.avgDynRes}}</td>
+              <td>{{entry.fullRes}}</td>
+              <td>{{entry.avgGPU}}</td>
+              <td>{{entry.avgRT}}</td>
+              <td>{{entry.avgGT}}</td>
+              <td>{{entry.avgGPUWork}}</td>
+              <td>{{entry.time}}</td>
+              <td>{{entry.hitches}}</td>
+              <td><button class="noselect btn btn-danger btn-block btn-sm" v-on:click="deleteEntry(entry)" data-content="Delete"></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <hr>
+    </div>
+
+    <script>
+      // You can also require other files to run in this process
+      require('./renderer.js')
+    </script>
+  </body>
+  </html>

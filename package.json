@@ -1,0 +1,28 @@
+{
+  "name": "PerformanceProcessor",
+  "version": "1.0.0",
+  "description": "An application to help process data.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "build --dir"
+  },
+  "build": {
+    "appId": "com.performance.processor",
+    "productName": "Performance Processor"
+  },
+  "keywords": [
+    "electron",
+    "performance",
+    "processor"
+  ],
+  "author": "Mark Steffensen",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "~1.7.8",
+    "electron-builder": "^19.37.2"
+  },
+  "dependencies": {
+    "7zip-bin": "^2.2.7"
+  }
+}
